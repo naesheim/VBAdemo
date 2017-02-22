@@ -1,0 +1,16 @@
+plugins {
+  id "net.praqma.gradle.uber" version "1.0.10"
+}
+
+task wrapper(type: Wrapper){
+        gradleVersion = '3.3'
+}
+
+buildproperties.publishing {
+	zip {
+		into("artifact"){
+			from (file("output/file.txt"))
+                }
+        }
+}
+
