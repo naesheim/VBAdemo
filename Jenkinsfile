@@ -2,7 +2,7 @@ pipeline {
   agent any
 
   environment {
-    branch = "${BRANCH_NAME}"
+    branch = "${env.BRANCH_NAME}"
   }
 
 
@@ -18,14 +18,14 @@ pipeline {
     stage('Publish-release'){
       when { environment name: 'branch', value: 'origin/release/*' }
           steps{
-            sh "echo ${BRANCH_NAME}"
+            sh "echo ${env.BRANCH_NAME}"
             sh 'set -e; ./gradlew publish -P release=true'
           }
         }
     stage('Publish-snapshot'){
       when { environment name: 'branch', value: 'origin/master' }
       steps{
-          sh "echo ${BRANCH_NAME}"
+          sh "echo ${env.BRANCH_NAME}"
           sh 'set -e; ./gradlew publish'
       }
     }
