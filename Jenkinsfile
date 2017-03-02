@@ -9,7 +9,7 @@ pipeline {
         sh 'set -e; if [ ! -f ~/.gradle/gradle.properties ]; then sh init.sh; fi'
       }
     }
-    if ("${BRANCH_NAME}" == 'origin/release/*'){
+    if ("${BRANCH_NAME}" == 'origin/release/'){
         stage('Publish-release'){
           steps{
             sh "echo ${BRANCH_NAME}"
