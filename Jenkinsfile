@@ -1,6 +1,8 @@
 pipeline {
   agent any
 
+
+
   stages {
     stage('Build'){
       steps{
@@ -11,7 +13,7 @@ pipeline {
     }
     stage('Publish-release'){
       when {
-        branch 'release'
+        branch 'origin/release/*'
       }
           steps{
             sh "echo ${BRANCH_NAME}"
@@ -20,7 +22,7 @@ pipeline {
         }
     stage('Publish-snapshot'){
       when {
-        branch 'master'
+        branch 'origin/master'
       }
       steps{
           sh "echo ${BRANCH_NAME}"
