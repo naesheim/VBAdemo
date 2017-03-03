@@ -4,6 +4,8 @@ pipeline {
   environment {
     branch = env.BRANCH_NAME
   }
+
+
   stages {
     stage('Build'){
       steps{
@@ -14,13 +16,13 @@ pipeline {
       }
     }
     stage('Publish-release'){
-      when { environment name: 'branch', value: 'origin/release/*' }
+      when { environment name: 'branch', value: 'release/*' }
           steps{
             sh 'set -e; ./gradlew publish -P release=true'
           }
         }
     stage('Publish-snapshot'){
-      when { environment name: 'branch', value: 'origin/master' }
+      when { environment name: 'branch', value: 'master' }
       steps{
           sh 'set -e; ./gradlew publish'
       }

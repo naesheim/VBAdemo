@@ -10,7 +10,6 @@ buildproperties.publishing {
 	zip {
 		into("artifact"){
 			from (file("output/file.txt"))
-                }
-        }
+    }
+  }
 }
-
