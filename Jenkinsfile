@@ -11,13 +11,13 @@ pipeline {
       }
     }
     stage('Publish-release'){
-      when { expression { return ${BRANCH_NAME}.contains('release')} }
+      when { expression { return "${BRANCH_NAME}".contains('release')} }
           steps{
             sh 'set -e; ./gradlew publish -P release=true'
           }
         }
     stage('Publish-snapshot'){
-      when { environment name: 'branch', value: 'master' }
+      when { expresseion { return "${BRANCH_NAME}".contains('master')} }
       steps{
           sh 'set -e; ./gradlew publish'
       }
