@@ -17,7 +17,7 @@ pipeline {
           }
         }
     stage('Publish-snapshot'){
-      when { expresseion { return "${BRANCH_NAME}".contains('master')} }
+      when { expression { return "${BRANCH_NAME}".contains('master')} }
       steps{
           sh 'set -e; ./gradlew publish'
       }
