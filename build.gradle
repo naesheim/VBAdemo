@@ -1,5 +1,5 @@
 plugins {
-  id "net.praqma.gradle.uber" version "1.0.10"
+  id "net.praqma.vba" version "1.0.0"
 }
 
 task wrapper(type: Wrapper){
