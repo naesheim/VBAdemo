@@ -1,7 +1,15 @@
+Library('SharedLibrary@master') _
+
 pipeline {
   agent any
 
   stages {
+    stage('Checkout'){
+	def repo='project'
+	repoCheckout repo
+	repoCheckout()
+    }
+
     stage('Build'){
       steps{
         sh "echo ${BRANCH_NAME}"
