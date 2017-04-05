@@ -1,7 +1,8 @@
 @Library('SharedLibrary@master') _
 
 node {
-	def repo='project'
-	checkoutRepo repo
-	checkoutRepo()
+    stage('CheckoutNewRepo'){
+	       def repo='project'
+	       checkoutRepo repo
+    }
 }
