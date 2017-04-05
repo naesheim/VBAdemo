@@ -1,4 +1,4 @@
-Library('SharedLibrary@master') _
+@Library('SharedLibrary@master') _
 
 node {
     stage('Checkout'){
