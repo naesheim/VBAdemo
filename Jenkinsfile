@@ -3,8 +3,8 @@
 node {
     stage('Checkout'){
 	       def repo='project'
-	       repoCheckout repo
-	       repoCheckout()
+	       checkoutRepo repo
+	       checkoutRepo()
      }
      stage('Build'){
          steps{
