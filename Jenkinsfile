@@ -5,4 +5,9 @@ node {
 	       def repo='project'
 	       checkoutRepo repo
     }
+    
+    stage('EchoOut') {
+		def output = 'Mundoss!'
+		hello output
+    }
 }
