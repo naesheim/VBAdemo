@@ -2,10 +2,10 @@
 
 node {
     stage('CheckoutNewRepo'){
-	       def repo='project'
+	       def repo='DjangoRichie'
 	       checkoutRepo repo
     }
-    
+
     stage('EchoOut') {
 		def output = 'Mundoss!'
 		hello output
