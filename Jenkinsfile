@@ -14,13 +14,11 @@ pipeline {
         }
 
         stage ('Update git') {
-            withCredentials{
                 steps {
                     sh 'git add build.properties'
                     sh "git commit -m 'Jenkins automated build: ${BUILD_NUMBER}'"
                     sh 'git push -u origin master'
                 }
-            }
         }
     }
 }
