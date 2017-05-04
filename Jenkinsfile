@@ -1,10 +1,9 @@
 pipeline {
     agent any
     stages {
-        stage('Build'){
-            steps{
-                sh "echo ${BRANCH_NAME}"
-                sh './gradlew'
+        stage ('Increment version'){
+            steps {
+                sh './gradlew bumpPatch'
             }
         }
 
@@ -12,6 +11,12 @@ pipeline {
             steps{
                 sh 'set -e; ./gradlew publish'
             }
+        }
+
+        stage ('Update git') {
+            sh 'git add build.properties'
+            sh "git commit -m 'Jenkins automated build: ${BUILD_NUMBER}'"
+            sh 'git push'
         }
     }
 }
