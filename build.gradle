@@ -13,3 +13,54 @@ buildproperties.publishing {
     }
   }
 }
+
+task "bumpPatch" {
+    group = "versioning"
+    doLast {
+        Properties props = new Properties()
+        File propFile = new File('build.properties')
+        propFile.withInputStream {
+            props.load(it)
+        }
+        def vers = props.version
+        def list = vers.tokenize('.')
+        def newPatch = list[2].toInteger() + 1
+
+        props.setProperty('version', (list[0]+'.'+list[1]+'.'+newPatch).toString())
+        props.store(propFile.newWriter(), null)
+    }
+}
+
+task "bumpMinor" {
+    group = "versioning"
+    doLast {
+        Properties props = new Properties()
+        File propFile = new File('build.properties')
+        propFile.withInputStream {
+            props.load(it)
+        }
+        def vers = props.version
+        def list = vers.tokenize('.')
+        def newMinor = list[1].toInteger() + 1
+
+        props.setProperty('version', (list[0]+'.'+newMinor+'.'+list[0]).toString())
+        props.store(propFile.newWriter(), null)
+    }
+}
+
+task "bumpMajor" {
+    group = "versioning"
+    doLast {
+        Properties props = new Properties()
+        File propFile = new File('build.properties')
+        propFile.withInputStream {
+            props.load(it)
+        }
+        def vers = props.version
+        def list = vers.tokenize('.')
+        def newMajor = list[0].toInteger() + 1
+
+        props.setProperty('version', (newMajor+'.'+list[1]+'.'+list[2]).toString())
+        props.store(propFile.newWriter(), null)
+    }
+}
