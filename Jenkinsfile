@@ -14,9 +14,11 @@ pipeline {
         }
 
         stage ('Update git') {
-            sh 'git add build.properties'
-            sh "git commit -m 'Jenkins automated build: ${BUILD_NUMBER}'"
-            sh 'git push'
+            steps {
+                sh 'git add build.properties'
+                sh "git commit -m 'Jenkins automated build: ${BUILD_NUMBER}'"
+                sh 'git push'
+            }
         }
     }
 }
