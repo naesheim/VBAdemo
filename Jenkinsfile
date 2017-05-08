@@ -8,7 +8,22 @@ pipeline {
                         parameters: [choice(name: 'IncrementVersion', choices: 'Major\nMinor\nPatch\n', description: 'choose')]
                     }
                     echo "${env.Version_Increment}"
-                    sh './gradlew bumpMinor'
+                    script {
+                        def gradleCmd
+                        switch(env.Version_Increment){
+                            case "Major":
+                                gradleCmd = 'bumpMajor'
+                                break
+                            case "Minor":
+                                gradleCmd = 'bumpMinor'
+                                break
+                            case "Patch":
+                                gradleCmd = 'bumpPatch'
+                                break
+                        }
+
+                    }
+                    sh "./gradlew ${gradleCmd}"
                 }
             }
 
