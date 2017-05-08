@@ -5,9 +5,10 @@ pipeline {
                 steps {
                     script {
                         env.Version_Increment = input message: 'Bump patch, minor or major', ok : 'Bump!',
-                        parameters: [choice(name: 'IncrementVersion', choices: 'patch/minor/major', description: 'choose')]
+                        parameters: [choice(name: 'IncrementVersion', choices: ['patch', 'minor', 'major'], description: 'choose')]
                     }
                     echo "${env.Version_Increment}"
+                    sh './gradlew bumpMinor'
                 }
             }
 
