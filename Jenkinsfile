@@ -26,6 +26,5 @@ pipeline {
                     sh 'git push origin HEAD:master'
                 }
             }
-        }
     }
 }
