@@ -5,25 +5,10 @@ pipeline {
                 steps {
                     script {
                         env.Version_Increment = input message: 'Bump patch, minor or major', ok : 'Bump!',
-                        parameters: [choice(name: 'IncrementVersion', choices: 'Major\nMinor\nPatch\n', description: 'choose')]
+                        parameters: [choice(name: 'IncrementVersion', choices: 'bumpMajor\nbumpMinor\nbumpPatch\n', description: 'choose')]
                     }
                     echo "${env.Version_Increment}"
-                    script {
-                        def gradleCmd
-                        switch(env.Version_Increment){
-                            case "Major":
-                                gradleCmd = 'bumpMajor'
-                                break
-                            case "Minor":
-                                gradleCmd = 'bumpMinor'
-                                break
-                            case "Patch":
-                                gradleCmd = 'bumpPatch'
-                                break
-                        }
-
-                    }
-                    sh "./gradlew ${gradleCmd}"
+                    sh "./gradlew ${env.Version_Increment}"
                 }
             }
 
