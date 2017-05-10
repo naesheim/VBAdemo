@@ -3,28 +3,13 @@ pipeline {
         stages {
             stage ('Increment version'){
                 steps {
-                    script {
-                        env.Version_Increment = input message: 'Bump patch, minor or major', ok : 'Bump!',
-                        parameters: [choice(name: 'IncrementVersion', choices: 'bumpMajor\nbumpMinor\nbumpPatch\n', description: 'choose')]
-                    }
-                    echo "${env.Version_Increment}"
-                    sh "./gradlew ${env.Version_Increment}"
+                    sh './gradlew incrementVersion'
                 }
             }
 
             stage('Publish'){
                 steps{
                     sh 'set -e; ./gradlew publish'
-                }
-            }
-
-            stage ('Update git') {
-                steps {
-                    sh 'git config user.email "hg.nesheim@gmail.com"'
-                    sh 'git config user.name "naesheim"'
-                    sh 'git add build.properties'
-                    sh "git commit -m 'Jenkins automated build: ${BUILD_NUMBER}'"
-                    sh 'git push origin HEAD:master'
                 }
             }
     }

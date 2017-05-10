@@ -64,3 +64,45 @@ task "bumpMajor" {
         props.store(propFile.newWriter(), null)
     }
 }
+
+task "incrementVersion" {
+    doLast {
+        Properties props = new Properties()
+        File propFile = new File('build.properties')
+        propFile.withInputStream {
+            props.load(it)
+        }
+        def vers = props.version
+        println("last version $vers")
+        def list = vers.tokenize('.')
+        def group = props.group.replace(".","/")
+
+        def html = new URL("${repositoryManagerUrl}/${props.publishRepo}/$group/${props.artifact}").openConnection()
+        if(html.getResponseCode().equals(200)){
+            BufferedReader reader = new BufferedReader(new InputStreamReader(html.getInputStream()))
+            def versionList = []
+            reader.eachLine {
+                if (it.contains((list[0]+'.'+list[1]).toString())){
+                    versionList.add((it.substring((it.indexOf('>'))+1,(it.indexOf('>')+6))))
+                }
+            }
+            def high = 0
+            def cur
+            versionList.each {
+                cur = it.tokenize('.')[2]
+                high = (cur > high) ? cur : high
+            }
+
+            high++
+
+            props.setProperty('version',(list[0]+'.'+list[1]+'.'+high).toString())
+            props.store(propFile.newWriter(), null)
+            println("new version "+props.getProperty('version'))
+
+        }
+        else{
+            println("wrong connection")
+        }
+
+    }
+}
