@@ -1,5 +1,6 @@
 plugins {
   id "net.praqma.vba" version "2.0.0"
+  id "net.praqma.vi" version "1.0.0"
 }
 
 task wrapper(type: Wrapper){
@@ -12,97 +13,4 @@ buildproperties.publishing {
 			from (file("output/file.txt"))
     }
   }
-}
-
-task "bumpPatch" {
-    group = "versioning"
-    doLast {
-        Properties props = new Properties()
-        File propFile = new File('build.properties')
-        propFile.withInputStream {
-            props.load(it)
-        }
-        def vers = props.version
-        def list = vers.tokenize('.')
-        def newPatch = list[2].toInteger() + 1
-
-        props.setProperty('version', (list[0]+'.'+list[1]+'.'+newPatch).toString())
-        props.store(propFile.newWriter(), null)
-    }
-}
-
-task "bumpMinor" {
-    group = "versioning"
-    doLast {
-        Properties props = new Properties()
-        File propFile = new File('build.properties')
-        propFile.withInputStream {
-            props.load(it)
-        }
-        def vers = props.version
-        def list = vers.tokenize('.')
-        def newMinor = list[1].toInteger() + 1
-
-        props.setProperty('version', (list[0]+'.'+newMinor+'.'+list[0]).toString())
-        props.store(propFile.newWriter(), null)
-    }
-}
-
-task "bumpMajor" {
-    group = "versioning"
-    doLast {
-        Properties props = new Properties()
-        File propFile = new File('build.properties')
-        propFile.withInputStream {
-            props.load(it)
-        }
-        def vers = props.version
-        def list = vers.tokenize('.')
-        def newMajor = list[0].toInteger() + 1
-
-        props.setProperty('version', (newMajor+'.'+list[1]+'.'+list[2]).toString())
-        props.store(propFile.newWriter(), null)
-    }
-}
-
-task "incrementVersion" {
-    doLast {
-        Properties props = new Properties()
-        File propFile = new File('build.properties')
-        propFile.withInputStream {
-            props.load(it)
-        }
-        def vers = props.version
-        println("last version $vers")
-        def list = vers.tokenize('.')
-        def group = props.group.replace(".","/")
-
-        def html = new URL("${repositoryManagerUrl}/${props.publishRepo}/$group/${props.artifact}").openConnection()
-        if(html.getResponseCode().equals(200)){
-            BufferedReader reader = new BufferedReader(new InputStreamReader(html.getInputStream()))
-            def versionList = []
-            reader.eachLine {
-                if (it.contains((list[0]+'.'+list[1]).toString())){
-                    versionList.add((it.substring((it.indexOf('>'))+1,(it.indexOf('>')+6))))
-                }
-            }
-            def high = 0
-            def cur
-            versionList.each {
-                cur = it.tokenize('.')[2]
-                high = (cur > high) ? cur : high
-            }
-
-            high++
-
-            props.setProperty('version',(list[0]+'.'+list[1]+'.'+high).toString())
-            props.store(propFile.newWriter(), null)
-            println("new version "+props.getProperty('version'))
-
-        }
-        else{
-            println("wrong connection")
-        }
-
-    }
 }
