@@ -8,8 +8,6 @@ node {
 
     stage('EchoOut') {
 		def output = 'Mundoss!'
-		hello {
-			output = output
-		}
+		hello { output }
     }
 }
