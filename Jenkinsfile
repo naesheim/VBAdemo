@@ -2,12 +2,17 @@
 
 node {
     stage('CheckoutNewRepo'){
-	       def repo='DjangoRichie'
-	       checkoutRepo repo
+	def repo='DjangoRichie'
+	checkoutRepo repo
     }
 
     stage('EchoOut') {
-		def output = 'Mundoss!'
-		hello output 
+	def output = 'Mundoss!'
+	hello output 
     }
+
+   stage('commit') {
+   	gitCommit
+   }
+
 }
