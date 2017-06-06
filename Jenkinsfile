@@ -18,7 +18,6 @@ node {
             for (int j = 0; j < entries.length; j++) {
                 def entry = entries[j]
                 echo "${entry.commitId} by ${entry.author} on ${new Date(entry.timestamp)}: ${entry.msg}"
-                def files = new ArrayList(entry.affectedFiles)
             }
         }
     }
