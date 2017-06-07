@@ -15,7 +15,7 @@ node {
     }
 
     stage ('gitCommit') {
-        gitCommit
+        gitCommit()
     }
 
 
