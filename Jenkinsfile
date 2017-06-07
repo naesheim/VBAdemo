@@ -10,12 +10,10 @@ node {
 	    hello output
     }
 
-   stage('env') {
-        echo sh(returnStdout: true, script: 'git log -1 --pretty=%B')
-    }
 
     stage ('gitCommit') {
-        gitCommit()
+        GIT_COMMIT = sh(returnStdout: true, script: 'git log -1 --pretty=%B')
+        gitCommit GIT_COMMIT
     }
 
 
