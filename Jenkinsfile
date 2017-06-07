@@ -1,6 +1,10 @@
 @Library('SharedLibrary@master') _
 
 node {
+    stage ('gitcheckout') {
+        checkout scm
+    }
+
     stage('EchoOut') {
         def output = 'Mundoss!'
 	    hello output
@@ -10,8 +14,12 @@ node {
         echo sh(returnStdout: true, script: 'env')
     }
 
+    stage ('gitCommit') {
+        gitCommit
+    }
 
-    stage('chageStage') {
+
+    stage('changeStage') {
         def changeLogSets = currentBuild.changeSets
         for (int i = 0; i < changeLogSets.size(); i++) {
             def entries = changeLogSets[i].items
