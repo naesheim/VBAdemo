@@ -11,7 +11,7 @@ node {
     }
 
    stage('env') {
-        echo sh(returnStdout: true, script: 'env')
+        echo sh(returnStdout: true, script: 'git log -1 --pretty=%B')
     }
 
     stage ('gitCommit') {
