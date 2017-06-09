@@ -13,7 +13,7 @@ node {
 
     stage ('gitCommit') {
         GIT_COMMIT = sh(returnStdout: true, script: 'git log -1 --pretty=%B')
-        gitCommit GIT_COMMIT
+        echo gitCommit GIT_COMMIT
     }
 
 
