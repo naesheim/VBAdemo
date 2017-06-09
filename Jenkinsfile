@@ -5,12 +5,6 @@ node {
         checkout scm
     }
 
-    stage('EchoOut') {
-        def output = 'Mundoss!'
-	    hello output
-    }
-
-
     stage ('gitCommit') {
         GIT_COMMIT = sh(returnStdout: true, script: 'git log -1 --pretty=%B')
         echo gitCommit GIT_COMMIT
