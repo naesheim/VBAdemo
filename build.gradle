@@ -1,6 +1,6 @@
 plugins {
   id "net.praqma.vba" version "2.0.0"
-  id "net.praqma.vi" version "1.0.0"
+  id "net.praqma.vi" version "1.0.2"
 }
 
 task wrapper(type: Wrapper){
