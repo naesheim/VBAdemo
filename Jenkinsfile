@@ -2,6 +2,6 @@
 
 String applicationName = "SuperApp"
 
-createChange applicationName
+createChange(applicationName)
 
 
