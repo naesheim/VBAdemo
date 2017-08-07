@@ -2,6 +2,4 @@
 
 String applicationName = "SuperApp"
 
-createChange(applicationName)
-
-
+maven3 mav3 = new maven3(applicationName)
