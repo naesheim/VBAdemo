@@ -2,4 +2,4 @@
 
 String applicationName = "SuperApp"
 
-maven3 mav3 = new maven3(applicationName)
+maven3(applicationName)
