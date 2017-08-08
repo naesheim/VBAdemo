@@ -2,4 +2,6 @@
 
 String applicationName = "SuperApp"
 
-maven3(applicationName)
+pipeline {
+    maven3(applicationName)
+}
