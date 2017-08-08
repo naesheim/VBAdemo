@@ -2,6 +2,4 @@
 
 String applicationName = "SuperApp"
 
-pipeline {
     maven3(applicationName)
-}
